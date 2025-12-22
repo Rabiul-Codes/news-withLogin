@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../context/AuthProvider';
 
 function Login() {
+  const {userLogin}=useContext(AuthContext);
   const handleLogin=(e)=>{
     e.preventDefault();
     const form = new FormData(e.currentTarget)
     const email = form.get('email');
     const password = form.get('password');
-    console.log(email,password)
+    // console.log(email,password)
+    userLogin(email,password);
   }
   return (
     <div className="hero bg-base-200 min-h-screen">
