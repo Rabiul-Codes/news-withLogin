@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
  import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
+import { registerToaster } from '../Toaster/Toaster';
 function Register() {
   const {registerUser}=useContext(AuthContext)
   const handleRegister =(e)=>{
@@ -11,8 +12,13 @@ function Register() {
        const password = Form.get('password')
        const conformPassword = Form.get('conformPassword')
       //  console.log(userName,email,password,conformPassword)
-      registerUser(email,password)
+      if(password !== conformPassword){
+        registerToaster('conform password not match')
+        return;
+      }
 
+      registerUser(email,password)
+      //  registerToaster('Register success');
   }
   return (
      <div className="hero bg-base-200 min-h-screen">

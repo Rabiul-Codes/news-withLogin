@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 
 function Login() {
-  const {userLogin}=useContext(AuthContext);
+  const {userLogin,googleLogin}=useContext(AuthContext);
   const handleLogin=(e)=>{
     e.preventDefault();
     const form = new FormData(e.currentTarget)
@@ -11,6 +11,9 @@ function Login() {
     const password = form.get('password');
     // console.log(email,password)
     userLogin(email,password);
+  }
+  const handleGoogleLogin=()=>{
+    googleLogin();
   }
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -34,6 +37,9 @@ function Login() {
           </div>
         </fieldset>
         </form>
+        <div className='text-center'>
+            <button onClick={handleGoogleLogin} className='btn text-2xl font-semibold bg-pink-300 rounded-2xl '>Login with google</button>
+            </div>
       </div>
     </div>
   </div>
