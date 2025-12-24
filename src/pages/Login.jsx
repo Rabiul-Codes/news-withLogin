@@ -8,8 +8,10 @@ function Login() {
   const {userLogin,googleLogin}=useContext(AuthContext);
   // path navigate
   const location = useLocation();
+  
+const from = location.state?.from?.pathname || '/';
   const navigate =useNavigate()
-  // console.log('location in login pages',location)
+  // console.log('location in login pages',from)
   const handleLogin=(e)=>{
     e.preventDefault();
     const form = new FormData(e.currentTarget)
@@ -21,7 +23,7 @@ function Login() {
       // console.log(result.user)
      loginToaster('Login success');
      
-     navigate(location?.state?location.state:'/');
+     navigate(from,{replace:true});
     })
     .catch((error)=>{
       // console.log(error.code)

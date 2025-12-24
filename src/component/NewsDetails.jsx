@@ -1,7 +1,8 @@
 import React from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 
 function NewsDetails() {
+  const navigate=useNavigate();
     const newsDetails = useLoaderData();
     // console.log(newsDetails)
   const {title,author,image_url,details}= newsDetails;
@@ -22,6 +23,11 @@ function NewsDetails() {
     <div className="card-actions justify-end items-center">
       <div className="badge badge-outline border-4 border-pink-300">{author.name}</div>
       <div className="w-20 border-4 border-pink-300 rounded-full"><img className='rounded-full' src={author.img} /></div>
+      <div>
+        <button onClick={()=>{navigate('/news')}} className='btn badge-outline'>
+          Back to news
+        </button>
+      </div>
     </div>
   </div>
 </div>
