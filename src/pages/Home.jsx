@@ -1,8 +1,11 @@
 import React from 'react'
+import News from './News';
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <News></News>
+      </div>
   )
 }
 

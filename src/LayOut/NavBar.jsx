@@ -1,9 +1,16 @@
-import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 function NavBar() {
+  const navigate =useNavigate();
   const{user,logOut}=useContext(AuthContext);
   // console.log(user)
+  useEffect(()=>{
+  if(user){
+  navigate('/')
+}
+  },[user])
+
   const handleLogOut=()=>{
     logOut();
   }
@@ -53,6 +60,7 @@ function NavBar() {
          {
             user?<div>
               {user.email}
+              
               <button onClick={handleLogOut} className="btn btn-sm">Log Out</button>
             </div>:<NavLink to='/login'><button className="btn btn-sm btn-accent">singIn</button></NavLink>
           }

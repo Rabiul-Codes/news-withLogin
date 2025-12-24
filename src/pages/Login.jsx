@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
+import { loginToaster } from '../Toaster/Toaster';
 
 function Login() {
+  
   const {userLogin,googleLogin}=useContext(AuthContext);
   const handleLogin=(e)=>{
     e.preventDefault();
@@ -10,10 +12,26 @@ function Login() {
     const email = form.get('email');
     const password = form.get('password');
     // console.log(email,password)
-    userLogin(email,password);
+    userLogin(email,password)
+      .then((result)=>{
+      // console.log(result.user)
+     loginToaster('Login success');
+    })
+    .catch((error)=>{
+      // console.log(error.code)
+      loginToaster('Wrong Email or password')
+      
+      return
+    }) 
   }
   const handleGoogleLogin=()=>{
-    googleLogin();
+    googleLogin()
+    .then((result)=>{
+        // setUser(result.user)
+       })
+       .catch((error)=>{
+        loginToaster(error.message)
+       })
   }
   return (
     <div className="hero bg-base-200 min-h-screen">

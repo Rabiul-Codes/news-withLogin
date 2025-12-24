@@ -10,46 +10,24 @@ import React, { createContext, useEffect, useState } from "react";
 import auth from "../FireBase/FireBase.config";
 import { loginToaster, registerToaster } from "../Toaster/Toaster";
 export const AuthContext = createContext(null);//context 
+
 function AuthProvider({ children }) {
   const [user,setUser]= useState(null)
   // create user
   const registerUser = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
-   .then((result)=>{
-    // setUser(result.user);
-    registerToaster('Register success')
-   })
-    .catch(error=>{
-      registerToaster(error.message)
-    })
+   return createUserWithEmailAndPassword(auth, email, password)
    
   };
   //user Login
   const userLogin = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-    .then((result)=>{
-      // console.log(result.user)
-     loginToaster('Login success')
-    })
-    .catch((error)=>{
-      // console.log(error.code)
-      loginToaster('Wrong Email or password')
-      
-      return
-    }) 
+   return signInWithEmailAndPassword(auth, email, password);
   };
 
   //google login
 
   const googleProvider = new GoogleAuthProvider();
   const googleLogin =()=>{
-   return signInWithPopup(auth,googleProvider)
-   .then((result)=>{
-    // setUser(result.user)
-   })
-   .catch((error)=>{
-    loginToaster(error.message)
-   })
+   return signInWithPopup(auth,googleProvider);
   }
 
    // observer

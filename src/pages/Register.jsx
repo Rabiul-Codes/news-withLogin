@@ -19,6 +19,13 @@ function Register() {
 
       registerUser(email,password)
       //  registerToaster('Register success');
+       .then((result)=>{
+    // setUser(result.user);
+       registerToaster('Register success');
+   })
+    .catch(error=>{
+      registerToaster(error.message)
+    })
   }
   return (
      <div className="hero bg-base-200 min-h-screen">
