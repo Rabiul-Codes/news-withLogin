@@ -1,11 +1,15 @@
 import React, { useContext } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import { loginToaster } from '../Toaster/Toaster';
 
 function Login() {
   
   const {userLogin,googleLogin}=useContext(AuthContext);
+  // path navigate
+  const location = useLocation();
+  const navigate =useNavigate()
+  // console.log('location in login pages',location)
   const handleLogin=(e)=>{
     e.preventDefault();
     const form = new FormData(e.currentTarget)
@@ -16,6 +20,8 @@ function Login() {
       .then((result)=>{
       // console.log(result.user)
      loginToaster('Login success');
+     
+     navigate(location?.state?location.state:'/');
     })
     .catch((error)=>{
       // console.log(error.code)

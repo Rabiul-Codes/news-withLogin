@@ -13,20 +13,24 @@ export const AuthContext = createContext(null);//context
 
 function AuthProvider({ children }) {
   const [user,setUser]= useState(null)
+  const [loading,setLoading]=useState(true)
   // create user
   const registerUser = (email, password) => {
    return createUserWithEmailAndPassword(auth, email, password)
+    setLoading(true)
    
   };
   //user Login
   const userLogin = (email, password) => {
    return signInWithEmailAndPassword(auth, email, password);
+   setLoading(true)
   };
 
   //google login
 
   const googleProvider = new GoogleAuthProvider();
   const googleLogin =()=>{
+    setLoading(true)
    return signInWithPopup(auth,googleProvider);
   }
 
@@ -36,10 +40,11 @@ function AuthProvider({ children }) {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
   if (currentUser) {
     setUser(currentUser)
-    console.log('sing in whoo')
+    // console.log('sing in whoo')
+    setLoading(false);
   } else {
     setUser(null)
-    console.log('logout form auth')
+    // console.log('logout form auth')
   }
 });
 return()=>{
@@ -57,6 +62,7 @@ return()=>{
     user,
     googleLogin,
     logOut,
+    loading,
 
   };
   
